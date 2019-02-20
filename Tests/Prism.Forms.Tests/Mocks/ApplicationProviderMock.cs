@@ -1,6 +1,4 @@
-﻿using System.Reflection;
-using System.Threading.Tasks;
-using Prism.Common;
+﻿using Prism.Common;
 using Xamarin.Forms;
 
 namespace Prism.Forms.Tests.Mocks

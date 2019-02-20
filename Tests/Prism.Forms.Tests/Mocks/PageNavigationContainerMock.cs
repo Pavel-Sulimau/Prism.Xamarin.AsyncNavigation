@@ -1,5 +1,4 @@
-﻿using Prism.Forms.Tests.Navigation;
-using Prism.Ioc;
+﻿using Prism.Ioc;
 using Prism.Navigation;
 using System;
 using System.Collections.Generic;
