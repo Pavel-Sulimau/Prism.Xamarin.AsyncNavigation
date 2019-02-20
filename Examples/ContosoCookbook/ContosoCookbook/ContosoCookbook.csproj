@@ -16,4 +16,8 @@
     <EmbeddedResource Include="**/*.json;**/*.jpg" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Prism.Xamarin.AsyncNavigation\Prism.Xamarin.AsyncNavigation.csproj" />
+  </ItemGroup>
+
 </Project>

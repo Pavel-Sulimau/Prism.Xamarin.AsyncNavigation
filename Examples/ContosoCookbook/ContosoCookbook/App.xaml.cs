@@ -1,5 +1,4 @@
-﻿using Unity;
-using Prism;
+﻿using Prism;
 using Prism.Ioc;
 using Prism.Unity;
 using Xamarin.Forms;
@@ -7,8 +6,8 @@ using ContosoCookbook.Views;
 using ContosoCookbook.Services;
 using Prism.Logging;
 using Xamarin.Forms.Xaml;
-using System.Collections.Generic;
 using System;
+using Prism.Navigation;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace ContosoCookbook
@@ -27,6 +26,13 @@ namespace ContosoCookbook
             {
                 SetMainPageFromException(result.Exception);
             }
+        }
+
+        protected override void RegisterRequiredTypes(IContainerRegistry containerRegistry)
+        {
+            base.RegisterRequiredTypes(containerRegistry);
+
+            containerRegistry.Register<INavigationService, Prism.Xamarin.AsyncNavigation.PageNavigationServiceExtended>(NavigationServiceName);
         }
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
