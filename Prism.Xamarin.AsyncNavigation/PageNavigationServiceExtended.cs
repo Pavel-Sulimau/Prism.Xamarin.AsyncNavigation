@@ -15,7 +15,7 @@ namespace Prism.Xamarin.AsyncNavigation
     /// <summary>
     /// Provides page based navigation for ViewModels.
     /// </summary>
-    public class PageNavigationServiceExtended : INavigationService, IPageAware
+    public class PageNavigationServiceExtended : INavigationService, IPageAware, INavigateInternal
     {
         internal const string RemovePageRelativePath = "../";
         internal const string RemovePageInstruction = "__RemovePage/";
@@ -178,6 +178,16 @@ namespace Prism.Xamarin.AsyncNavigation
             }
         }
 
+        Task<INavigationResult> INavigateInternal.GoBackInternal(INavigationParameters parameters, bool? useModalNavigation, bool animated)
+        {
+            return GoBackInternal(parameters, useModalNavigation, animated);
+        }
+
+        Task<INavigationResult> INavigateInternal.GoBackToRootInternal(INavigationParameters parameters)
+        {
+            return GoBackToRootInternal(parameters);
+        }
+
         /// <summary>
         /// Initiates navigation to the target specified by the <paramref name="name"/>.
         /// </summary>
@@ -210,6 +220,11 @@ namespace Prism.Xamarin.AsyncNavigation
                 name = name.Replace(RemovePageRelativePath, RemovePageInstruction);
 
             return NavigateInternal(UriParsingHelper.Parse(name), parameters, useModalNavigation, animated);
+        }
+
+        Task<INavigationResult> INavigateInternal.NavigateInternal(string name, INavigationParameters parameters, bool? useModalNavigation, bool animated)
+        {
+            return NavigateInternal(name, parameters, useModalNavigation, animated);
         }
 
         /// <summary>
@@ -283,6 +298,11 @@ namespace Prism.Xamarin.AsyncNavigation
             {
                 NavigationSource = PageNavigationSource.Device;
             }
+        }
+
+        Task<INavigationResult> INavigateInternal.NavigateInternal(Uri uri, INavigationParameters parameters, bool? useModalNavigation, bool animated)
+        {
+            return NavigateInternal(uri, parameters, useModalNavigation, animated);
         }
 
         protected virtual async Task ProcessNavigation(Page currentPage, Queue<string> segments, INavigationParameters parameters, bool? useModalNavigation, bool animated)
