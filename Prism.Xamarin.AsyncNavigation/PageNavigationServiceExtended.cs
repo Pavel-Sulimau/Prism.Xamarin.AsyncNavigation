@@ -673,18 +673,15 @@ namespace Prism.Xamarin.AsyncNavigation
 
             if (toPage is TabbedPage tabbedPage)
             {
-                foreach (var child in tabbedPage.Children)
+                if (tabbedPage.CurrentPage is NavigationPage navigationPage)
                 {
-                    if (child is NavigationPage navigationPage)
-                    {
-                        PageUtilities.OnNavigatingTo(navigationPage.CurrentPage, parameters);
-                        await PageUtilitiesExtended.OnNavigatingToAsync(navigationPage.CurrentPage, parameters);
-                    }
-                    else
-                    {
-                        PageUtilities.OnNavigatingTo(child, parameters);
-                        await PageUtilitiesExtended.OnNavigatingToAsync(child, parameters);
-                    }
+                    PageUtilities.OnNavigatingTo(navigationPage.CurrentPage, parameters);
+                    await PageUtilitiesExtended.OnNavigatingToAsync(navigationPage.CurrentPage, parameters);
+                }
+                else
+                {
+                    PageUtilities.OnNavigatingTo(tabbedPage.CurrentPage, parameters);
+                    await PageUtilitiesExtended.OnNavigatingToAsync(tabbedPage.CurrentPage, parameters);
                 }
             }
             else if (toPage is CarouselPage carouselPage)
